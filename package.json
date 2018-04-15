@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/theronhalsey/LIRI/issues"
   },
-  "homepage": "https://github.com/theronhalsey/LIRI#readme"
+  "homepage": "https://github.com/theronhalsey/LIRI#readme",
+  "dependencies": {
+    "inquirer": "^5.2.0"
+  }
 }
