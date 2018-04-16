@@ -131,6 +131,10 @@ var doWhatItSays = function () {
     });
 };
 
+var jenkins = function () {
+    console.log("LEEROOOOY JENKIIINS!");
+}
+
 switch (command) {
     case "my-tweets":
         myTweets();
@@ -148,6 +152,17 @@ switch (command) {
         doWhatItSays();
         break;
 
+    case "jenkins":
+        jenkins();
+        break;
+
     default:
         console.log("I am not a very smart bot and only understand 'my-tweets', 'spotify-this-song + <search terms>', 'movie-this + <search terms>', and 'do-what-it-says'.")
 };
+
+fs.appendFile("log.txt", command + ': ' + searchPhrase + '\n', function (err) {
+    if (err) {
+        return console.log(err);
+    }
+
+});
