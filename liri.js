@@ -164,5 +164,4 @@ fs.appendFile("log.txt", command + ': ' + searchPhrase + '\n', function (err) {
     if (err) {
         return console.log(err);
     }
-
 });
