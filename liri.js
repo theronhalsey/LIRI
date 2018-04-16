@@ -3,6 +3,7 @@ require("dotenv").config();
 var keys = require('./keys');
 var Spotify = require('node-spotify-api');
 var Twitter = require('twitter');
+var request = require('request');
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -44,12 +45,31 @@ if (command === 'my-tweets') {
             .catch(function (err) {
                 console.log(err);
             });
-    }
+    };
 
 } else if (command === 'movie-this') {
+    if (process.argv.length > 3) {
+        request("https://www.omdbapi.com/?t=" + searchPhrase + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
+            if (error) {
+                console.log('error:', error);
+            } else {
+                var result = JSON.parse(body);
+                console.log(result.Title + '\n' + result.Year + '\n' + result.Ratings[0].Value + '\n' + result.Ratings[1].Value + '\n' + result.Country + '\n' + result.Language + '\n' + result.Plot + '\n' + result.Actors);
+            }
+        });
+    } else {
+        request("https://www.omdbapi.com/?t=" + 'Mr. Nobody' + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
+            if (error) {
+                console.log('error:', error);
+            } else {
+                var result = JSON.parse(body);
+                console.log(result.Title + '\n' + result.Year + '\n' + result.Ratings[0].Value + '\n' + result.Ratings[1].Value + '\n' + result.Country + '\n' + result.Language + '\n' + result.Plot + '\n' + result.Actors);
+            }
+        });
+    }
 
 } else if (command === 'do-what-it-says') {
 
 } else {
-    console.log("I am not a very smart bot and only understand 'my-tweets', 'spotify-this-song', 'movie-this', and 'do-what-it-says'.")
+    console.log("I am not a very smart bot and only understand 'my-tweets', 'spotify-this-song + <search terms>', 'movie-this + <search terms>', and 'do-what-it-says'.")
 };
